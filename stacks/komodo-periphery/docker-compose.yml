@@ -1,0 +1,14 @@
+services:
+  periphery:
+    container_name: komodo-periphery
+    image: ghcr.io/moghtech/komodo-periphery:2.3.3
+    init: true
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./config/keys:/config/keys
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc:/proc
+      ## Must be the same inside and outside the container,
+      - ${PERIPHERY_ROOT_DIRECTORY}:${PERIPHERY_ROOT_DIRECTORY}

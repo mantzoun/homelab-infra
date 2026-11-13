@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Check for staged plaintext .env files, but ignore encrypted .enc.env files.
+unencrypted_envs=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '(^|/).*\.env$' | grep -v -E '(^|/).*\.enc\.env$')
+
+echo "Checking for staged plaintext .env files..."
+
+if [ -n "$unencrypted_envs" ]; then
+    echo "--------------------------------------------------"
+    echo "ERROR: Attempting to commit unencrypted .env files:"
+    echo "$unencrypted_envs"
+    echo "Please encrypt your secrets using SOPS before committing."
+    echo "--------------------------------------------------"
+    exit 1
+fi
+
+echo "OK"

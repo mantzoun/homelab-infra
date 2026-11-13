@@ -1,0 +1,5 @@
+.sops.conf
+# Ignore all .env files
+*.env
+# Except encrypted .env files
+!*.enc.env
