@@ -12,3 +12,4 @@ services:
       - /proc:/proc
       ## Must be the same inside and outside the container,
       - ${PERIPHERY_ROOT_DIRECTORY}:${PERIPHERY_ROOT_DIRECTORY}
+      - ${PERIPHERY_HOST_VOLUMES_ROOT}:${PERIPHERY_HOST_VOLUMES_ROOT}
