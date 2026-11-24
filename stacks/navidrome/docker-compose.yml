@@ -1,0 +1,22 @@
+services:
+  navidrome:
+    image: deluan/navidrome:0.64.2
+    container_name: navidrome
+    user: 1000:1000 # should be owner of volumes
+    ports:
+      - "${NAVIDROME_PORT:-4533}:4533"
+    restart: unless-stopped
+    environment:
+      TZ: "Europe/Athens"
+      ND_SESSIONTIMEOUT: 800h
+      # ND_LOGLEVEL: debug
+    volumes:
+      - "${HOST_VOLUME_ROOT}/${NAVIDROME_ROOT:-navidrome}/data:/data"
+      - "${NAVIDROME_MUSIC}:/music:ro"
+    networks:
+      - shared_net
+
+networks:
+  shared_net:
+    external: true
+    name: ${NAVIDROME_NETWORK:-navidrome-net}
